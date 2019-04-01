@@ -16,7 +16,6 @@ import org.quartz.impl.StdSchedulerFactory;
 import com.csis.reminder.job.NotificationJob;
 import com.csis.reminder.util.ScreenUtil;
 
-
 public class AppConfigServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +30,7 @@ public class AppConfigServlet extends HttpServlet {
 
 	private void createSchedule() {
 		try {
-			JobDetail job1 = JobBuilder.newJob(NotificationJob.class).withIdentity("webCrawlerJog", "webCrawlerJogGroup").build();
+			JobDetail job1 = JobBuilder.newJob(NotificationJob.class).withIdentity("notificationJob", "notificationJobGroup").build();
 
 			Date dateAddMinute = ScreenUtil.getDateAddMinute(new Date(), 1);
 			String format = "MMM dd, yyyy HH:mm";
@@ -41,7 +40,7 @@ public class AppConfigServlet extends HttpServlet {
 			Trigger trigger1 = TriggerBuilder.newTrigger()
 										.startAt(dateAddMinute)
 												.withIdentity("webCrawlerJogTrigger", "webCrawlerJogGroup")
-												.withSchedule(SimpleScheduleBuilder.repeatHourlyForever(3))
+												.withSchedule(SimpleScheduleBuilder.repeatMinutelyForever(10))
 												.build();
 			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();
 			scheduler1.start();
