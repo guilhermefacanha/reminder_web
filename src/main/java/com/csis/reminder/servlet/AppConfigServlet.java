@@ -13,6 +13,7 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.csis.reminder.dao.resources.Resources;
 import com.csis.reminder.job.NotificationJob;
 import com.csis.reminder.util.ScreenUtil;
 
@@ -26,6 +27,7 @@ public class AppConfigServlet extends HttpServlet {
 		System.out.println("Application init");
 		System.out.println("==============================================");
 		createSchedule();
+		Resources.testInitializeDb();
 	}
 
 	private void createSchedule() {
@@ -39,7 +41,7 @@ public class AppConfigServlet extends HttpServlet {
 			System.out.println("============================================");
 			Trigger trigger1 = TriggerBuilder.newTrigger()
 										.startAt(dateAddMinute)
-												.withIdentity("webCrawlerJogTrigger", "webCrawlerJogGroup")
+												.withIdentity("notificationJobTrigger", "notificationJobGroup")
 												.withSchedule(SimpleScheduleBuilder.repeatMinutelyForever(10))
 												.build();
 			Scheduler scheduler1 = new StdSchedulerFactory().getScheduler();

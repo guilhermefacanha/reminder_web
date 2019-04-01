@@ -8,9 +8,8 @@
 		<properties>
 
 			<!-- HIBERNATE SQL UPDATE PROPERTIES -->
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 			<!-- HIBERNATE CONNECTION PROPERTIES -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
@@ -26,7 +25,7 @@
 			<property name="hibernate.max_fetch_depth" value="3" />
 
 			<!-- Configuracoes de pool -->
-			<property name="hibernate.connection.pool_size" value="50" />
+			<property name="hibernate.connection.pool_size" value="10" />
 
 		</properties>
 	</persistence-unit>

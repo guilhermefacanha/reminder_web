@@ -34,21 +34,22 @@ public class EmailService {
 
 		try {
 			String text = "Dear " + notification.getEvent().getCourse().getUser().getFirstName()
-					+ ",\n\n this a reminder to the upcoming event:\n\n"
-					+ "Event: "+notification.getEvent().getDescription() + "\n"
-					+ "Date: "+ScreenUtil.getStringDeData(notification.getEvent().getDate(), DATE_FORMAT) + "\n\n"
-					+ "Best regards,\n Reminder Team"
-					;
+					+ ",\n\n this a reminder to the upcoming event:\n\n" + "Course: "
+					+ notification.getEvent().getCourse().getCourseName() + "\n" + "Event: "
+					+ notification.getEvent().getDescription() + "\n" + "Date: "
+					+ ScreenUtil.getStringDeData(notification.getEvent().getDate(), DATE_FORMAT) + "\n\n"
+					+ "Best regards,\n Reminder Team";
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("reminder.csis.contact@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("guilhermefacanha@gmail.com"));
-			message.setSubject("Reminder for " + notification.getNotificationName());
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(notification.getUserEmail()));
+			message.setSubject("[Reminder] Event Notification " + notification.getNotificationName());
 			message.setText(text);
 
 			Transport.send(message);
 
-			System.out.println("Done");
+			System.out.println(
+					"Sent notification for id: " + notification.getId() + ", user: " + notification.getUserEmail());
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

@@ -119,6 +119,10 @@ public class Notification
 		public void setIsNotified(boolean isNotified) {
 			this.isNotified = isNotified;
 		}
+
+		public String getUserEmail() {
+			return event.getCourse().getUser().getEmail();
+		}
 		
 	
 	
